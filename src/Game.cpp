@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include "Debug/DebugText.h"
+
 // Constructor / Destructor
 Game::Game() {
     this->initVariables();
@@ -41,16 +43,21 @@ void Game::render() const {
     this->window_->clear();
 
     // Render all game objects before display (player, enemies, etc...)
+    // - HERE -
 
-    sf::Text text;
-    text.setFont(this->font_);
-    text.setFillColor(sf::Color::White);
-    text.setCharacterSize(20);
+    // ----------------------------------------------------------------
+    // DEBUG: display delta time
+    DebugText debugText;
+    debugText.setFont(this->font_);
 
     std::stringstream ss;
     ss << "DeltaTime: " << this->dt_;
-    text.setString(ss.str());
-    this->window_->draw(text);
+
+    debugText.setText(ss.str());
+
+    this->window_->draw(debugText.getText());
+    // END DEBUG
+    // ----------------------------------------------------------------
 
     this->window_->display();
 }
@@ -69,6 +76,6 @@ void Game::initWindow() {
 }
 
 void Game::initFont() {
-    if (!this->font_.loadFromFile("arialbd.ttf"))
+    if (!this->font_.loadFromFile(FONTS_PATH + "arialbd.ttf"))
         throw std::runtime_error("ERROR::Game::initFont(): Failed to load font");
 }

@@ -5,6 +5,8 @@
 
 #include <sstream>
 
+static const std::string FONTS_PATH = "resources/fonts/";
+
 class Game {
 public:
     // Constructor / Destructor
