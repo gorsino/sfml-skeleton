@@ -21,6 +21,8 @@ add_executable(sfml-skeleton src/main.cpp
 target_link_libraries(sfml-skeleton PRIVATE sfml-graphics)
 target_compile_features(sfml-skeleton PRIVATE cxx_std_17)
 
+file(COPY resources DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
 if (WIN32)
     add_custom_command(
             TARGET sfml-skeleton
