@@ -73,6 +73,7 @@ void Game::initWindow() {
     const sf::VideoMode vm(1920u, 1080u);
 
     this->window_ = new sf::RenderWindow(sf::VideoMode(vm.width, vm.height), title);
+    this->window_->setFramerateLimit(144);
 }
 
 void Game::initFont() {
