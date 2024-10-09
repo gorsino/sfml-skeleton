@@ -5,6 +5,8 @@
 
 #include <sstream>
 
+#include "Entity.h"
+
 static const std::string FONTS_PATH = "resources/fonts/";
 
 class Game {
@@ -32,6 +34,8 @@ private:
 
     sf::Clock dtClock_;
     float dt_;
+
+    Entity entity_;
 };
 
 #endif //GAME_H

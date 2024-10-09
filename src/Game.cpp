@@ -30,7 +30,8 @@ void Game::run() {
 
 void Game::updateSFMLEvents() {
     while (this->window_->pollEvent(this->sfEvent_)) {
-        if (this->sfEvent_.type == sf::Event::Closed)
+        if (this->sfEvent_.type == sf::Event::Closed ||
+            (this->sfEvent_.type == sf::Event::KeyPressed && this->sfEvent_.key.code == sf::Keyboard::Escape))
             this->window_->close();
     }
 }
@@ -43,6 +44,7 @@ void Game::render() const {
     this->window_->clear();
 
     // Render all game objects before display (player, enemies, etc...)
+    this->window_->draw(this->entity_);
     // - HERE -
 
     // ----------------------------------------------------------------
