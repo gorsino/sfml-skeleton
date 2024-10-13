@@ -18,8 +18,9 @@ add_executable(sfml-skeleton src/main.cpp
         src/Game.h
         src/Debug/DebugText.cpp
         src/Debug/DebugText.h
-        src/Entity.cpp
-        src/Entity.h)
+        src/ParticleSystem.cpp
+        src/ParticleSystem.h
+)
 target_link_libraries(sfml-skeleton PRIVATE sfml-graphics)
 target_compile_features(sfml-skeleton PRIVATE cxx_std_17)
 

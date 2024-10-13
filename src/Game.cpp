@@ -15,6 +15,8 @@ Game::~Game() {
 
 // Public functions
 void Game::run() {
+    this->particles_.init(this->window_->getSize());
+
     while (this->window_->isOpen()) {
         // Update delta time
         this->dt_ = this->dtClock_.restart().asSeconds();
@@ -30,6 +32,9 @@ void Game::run() {
 
 void Game::updateSFMLEvents() {
     while (this->window_->pollEvent(this->sfEvent_)) {
+        if (this->sfEvent_.type == sf::Event::KeyPressed) {
+            this->particles_.reset();
+        }
         if (this->sfEvent_.type == sf::Event::Closed ||
             (this->sfEvent_.type == sf::Event::KeyPressed && this->sfEvent_.key.code == sf::Keyboard::Escape))
             this->window_->close();
@@ -37,15 +42,14 @@ void Game::updateSFMLEvents() {
 }
 
 void Game::update() {
-    // Game logic here...
+    this->particles_.update();
 }
 
 void Game::render() const {
     this->window_->clear();
 
     // Render all game objects before display (player, enemies, etc...)
-    this->window_->draw(this->entity_);
-    // - HERE -
+    this->window_->draw(this->particles_);
 
     // ----------------------------------------------------------------
     // DEBUG: display delta time
