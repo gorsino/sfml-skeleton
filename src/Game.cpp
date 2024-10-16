@@ -1,7 +1,5 @@
 #include "Game.h"
 
-#include "Debug/DebugText.h"
-
 // Constructor / Destructor
 Game::Game() : dt_(0.f), window_(nullptr), sfEvent_(sf::Event()) {
     this->initFont();

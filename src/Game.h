@@ -2,10 +2,10 @@
 #define GAME_H
 
 #include "SFML/Graphics.hpp"
+#include "Debug/DebugText.h"
+#include "ParticleSystem.h"
 
 #include <sstream>
-
-#include "ParticleSystem.h"
 
 static const std::string FONTS_PATH = "resources/fonts/";
 
