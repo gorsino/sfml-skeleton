@@ -9,6 +9,13 @@
 
 static const std::string FONTS_PATH = "resources/fonts/";
 
+// Structs
+struct MousePositions {
+    sf::Vector2i screen;
+    sf::Vector2i window;
+    sf::Vector2f view;
+};
+
 class Game {
 public:
     // Constructor / Destructor
@@ -32,13 +39,6 @@ private:
     void updateSFMLEvents();
 
     void updateMousePositions();
-
-    // Structs
-    struct MousePositions {
-        sf::Vector2i screen;
-        sf::Vector2i window;
-        sf::Vector2f view;
-    };
 
     // Variables
     sf::RenderWindow *window_;
