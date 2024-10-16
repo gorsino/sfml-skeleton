@@ -16,8 +16,7 @@ public:
 protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-private:
-    sf::Text text_;
+    sf::Text text;
 };
 
 #endif //DEBUGTEXT_H

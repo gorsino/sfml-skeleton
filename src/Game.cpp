@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Debug/MousePositionsText.h"
 
 // Constructor / Destructor
 Game::Game() : dt_(0.f), window_(nullptr), sfEvent_(sf::Event()) {
@@ -51,19 +52,10 @@ void Game::render() const {
 
     // ----------------------------------------------------------------
     // DEBUG: display mouse positions
-    ss.str("");
-    ss << "S: " << this->mousePositions_.screen.x << "  " << this->mousePositions_.screen.y << "\n";
-    ss << "W: " << this->mousePositions_.window.x << "  " << this->mousePositions_.window.y << "\n";
-    ss << "V: " << this->mousePositions_.view.x << "  " << this->mousePositions_.view.y;
+    this->window_->draw(
+            MousePositionsText(this->mousePositions_,
+                    this->font_, 20));
 
-    DebugText mouseText(this->font_, 20);
-    mouseText.setPosition(
-            static_cast<float>(this->mousePositions_.window.x) + 30,
-            static_cast<float >(this->mousePositions_.window.y)
-    );
-    mouseText.setString(ss.str());
-
-    this->window_->draw(mouseText);
     // END DEBUG
     // ----------------------------------------------------------------
 
