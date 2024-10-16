@@ -19,23 +19,34 @@ public:
     // Functions
     void run();
 
-    void updateSFMLEvents();
-
-    void update();
-
-    void render() const;
-
 private:
     // Functions
     void initWindow();
 
     void initFont();
 
+    void update();
+
+    void render() const;
+
+    void updateSFMLEvents();
+
+    void updateMousePositions();
+
+    // Structs
+    struct MousePositions {
+        sf::Vector2i screen;
+        sf::Vector2i window;
+        sf::Vector2f view;
+    };
+
     // Variables
     sf::RenderWindow *window_;
     sf::VideoMode mode_;
     sf::Event sfEvent_;
     sf::Font font_;
+
+    MousePositions mousePositions_;
 
     sf::Clock dtClock_;
     float dt_;
