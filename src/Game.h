@@ -27,14 +27,13 @@ public:
 
 private:
     // Functions
-    void initVariables();
-
     void initWindow();
 
     void initFont();
 
     // Variables
     sf::RenderWindow *window_;
+    sf::VideoMode mode_;
     sf::Event sfEvent_;
     sf::Font font_;
 

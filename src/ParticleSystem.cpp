@@ -40,8 +40,8 @@ void ParticleSystem::draw(sf::RenderTarget &target, sf::RenderStates states) con
 
 void ParticleSystem::resetParticle(const size_t index, const bool first) {
     // Give the particle an initial position
-    const float mx = static_cast<float>(this->windowSize_.x) / 2;
-    const float my = static_cast<float>(this->windowSize_.y) / 2;
+    const float mx = this->particles_[index].emitter.x;
+    const float my = this->particles_[index].emitter.y;
 
     this->vertices_[4 * index + 0].position = sf::Vector2f(mx, my);
     this->vertices_[4 * index + 1].position = sf::Vector2f(mx + this->size_, my);
@@ -67,4 +67,10 @@ void ParticleSystem::resetParticle(const size_t index, const bool first) {
 
     // Give the particle a lifespan
     this->particles_[index].lifetime = 72 + rand() % 144;
+}
+
+void ParticleSystem::setEmitter(sf::Vector2i position) {
+    for (auto &p: this->particles_) {
+        p.emitter = position;
+    }
 }

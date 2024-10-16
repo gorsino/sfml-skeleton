@@ -17,6 +17,8 @@ public:
 
     void update();
 
+    void setEmitter(sf::Vector2i position);
+
     void reset(size_t count = 1024, float size = 5.f);
 
 protected:
@@ -26,6 +28,7 @@ private:
     struct Particle {
         sf::Vector2f velocity;
         int lifetime = 0;
+        sf::Vector2i emitter;
     };
 
     std::vector<Particle> particles_;

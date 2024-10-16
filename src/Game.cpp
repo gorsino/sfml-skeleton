@@ -3,8 +3,7 @@
 #include "Debug/DebugText.h"
 
 // Constructor / Destructor
-Game::Game() {
-    this->initVariables();
+Game::Game() : dt_(0.f), window_(nullptr), sfEvent_(sf::Event()) {
     this->initFont();
     this->initWindow();
 }
@@ -32,8 +31,8 @@ void Game::run() {
 
 void Game::updateSFMLEvents() {
     while (this->window_->pollEvent(this->sfEvent_)) {
-        if (this->sfEvent_.type == sf::Event::KeyPressed) {
-            this->particles_.reset();
+        if (this->sfEvent_.type == sf::Event::MouseButtonPressed) {
+            this->particles_.setEmitter(sf::Mouse::getPosition(*this->window_));
         }
         if (this->sfEvent_.type == sf::Event::Closed ||
             (this->sfEvent_.type == sf::Event::KeyPressed && this->sfEvent_.key.code == sf::Keyboard::Escape))
@@ -68,16 +67,12 @@ void Game::render() const {
 }
 
 // Private functions
-void Game::initVariables() {
-    this->dt_ = 0.f;
-    this->window_ = nullptr;
-}
-
 void Game::initWindow() {
     const std::string title = "SFML Skeleton";
-    const sf::VideoMode vm(1920u, 1080u);
 
-    this->window_ = new sf::RenderWindow(sf::VideoMode(vm.width, vm.height), title);
+    this->mode_ = sf::VideoMode(1920u, 1080u);
+
+    this->window_ = new sf::RenderWindow(this->mode_, title);
     this->window_->setFramerateLimit(144);
 }
 
