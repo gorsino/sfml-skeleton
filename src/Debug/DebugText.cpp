@@ -1,21 +1,22 @@
 #include "DebugText.h"
 
-DebugText::DebugText() {
-    this->text_.setCharacterSize(16);
+DebugText::DebugText(const sf::Font &font, int characterSize) {
+    this->text_.setFont(font);
+    this->text_.setCharacterSize(characterSize);
     this->text_.setFillColor(sf::Color::White);
 }
 
 DebugText::~DebugText() = default;
 
-void DebugText::setFont(const sf::Font &font) {
-    this->text_.setFont(font);
-}
-
 // Public functions
-void DebugText::setText(const std::string &text) {
-    this->text_.setString(text);
+void DebugText::setString(const std::string &value) {
+    this->text_.setString(value);
 }
 
-sf::Text DebugText::getText() {
-    return this->text_;
+void DebugText::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    states.transform *= getTransform();
+
+    states.texture = nullptr;
+
+    target.draw(this->text_, states);
 }

@@ -53,15 +53,14 @@ void Game::render() const {
 
     // ----------------------------------------------------------------
     // DEBUG: display delta time
-    DebugText debugText;
-    debugText.setFont(this->font_);
-
     std::stringstream ss;
     ss << "DeltaTime: " << this->dt_;
 
-    debugText.setText(ss.str());
+    DebugText debugText(this->font_, 20);
+    debugText.setPosition(200, 200);
+    debugText.setString(ss.str());
 
-    this->window_->draw(debugText.getText());
+    this->window_->draw(debugText);
     // END DEBUG
     // ----------------------------------------------------------------
 

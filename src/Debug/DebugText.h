@@ -1,17 +1,20 @@
 #ifndef DEBUGTEXT_H
 #define DEBUGTEXT_H
 
+#include <sstream>
 #include "SFML/Graphics/Text.hpp"
+#include "SFML/Graphics/RenderWindow.hpp"
 
-class DebugText {
+class DebugText : public sf::Drawable, public sf::Transformable {
 public:
-    DebugText();
-    ~DebugText();
+    DebugText(const sf::Font &font, int characterSize);
 
-    void setFont(const sf::Font& font);
+    ~DebugText() override;
 
-    void setText(const std::string &text);
-    sf::Text getText();
+    void setString(const std::string &value);
+
+protected:
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
     sf::Text text_;
