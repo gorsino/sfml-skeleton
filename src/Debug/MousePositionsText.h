@@ -9,9 +9,6 @@ public:
     MousePositionsText(MousePositions mousePositions, const sf::Font &font, int characterSize);
 
     ~MousePositionsText() override;
-
-private:
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
 
 #endif //SFML_SKELETON_MOUSEPOSITIONSTEXT_H

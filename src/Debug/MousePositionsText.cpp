@@ -14,8 +14,5 @@ MousePositionsText::MousePositionsText(MousePositions mousePositions, const sf::
     this->text.setString(ss.str());
 }
 
-void MousePositionsText::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    DebugText::draw(target, states);
-}
 
 MousePositionsText::~MousePositionsText() = default;
