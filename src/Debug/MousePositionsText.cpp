@@ -1,6 +1,6 @@
 #include "MousePositionsText.h"
 
-MousePositionsText::MousePositionsText(MousePositions mousePositions, const sf::Font &font, int characterSize)
+MousePositionsText::MousePositionsText(const MousePositions &mousePositions, const sf::Font &font, int characterSize)
         : DebugText(font, characterSize) {
 
     std::stringstream ss;

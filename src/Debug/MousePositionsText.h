@@ -4,9 +4,9 @@
 #include "DebugText.h"
 #include "../Game.h"
 
-class MousePositionsText : public DebugText {
+class MousePositionsText final : public DebugText {
 public:
-    MousePositionsText(MousePositions mousePositions, const sf::Font &font, int characterSize);
+    MousePositionsText(const MousePositions &mousePositions, const sf::Font &font, int characterSize);
 
     ~MousePositionsText() override;
 };
