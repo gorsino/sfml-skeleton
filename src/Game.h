@@ -40,16 +40,22 @@ private:
 
     void updateMousePositions();
 
+    void updateKeyTime();
+
+    bool isKeyTime();
+
     // Variables
     sf::RenderWindow *window_;
     sf::VideoMode mode_;
     sf::Event sfEvent_;
     sf::Font font_;
+    sf::Clock dtClock_;
 
     MousePositions mousePositions_;
 
-    sf::Clock dtClock_;
-    float dt_;
+    float dt_ = 0.f;
+    float keyTime_ = 0.f;
+    float keyTimeMax_ = 10.f;
 
     ParticleSystem particles_;
 };
