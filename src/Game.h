@@ -10,13 +10,15 @@
 static const std::string FONTS_PATH = "resources/fonts/";
 
 // Structs
-struct MousePositions {
+struct MousePositions
+{
     sf::Vector2i screen;
     sf::Vector2i window;
     sf::Vector2f view;
 };
 
-class Game {
+class Game
+{
 public:
     // Constructor / Destructor
     Game();
@@ -44,8 +46,14 @@ private:
 
     bool isKeyTime();
 
+    void debugDeltaTime() const;
+
+    void debugKeyTime() const;
+
+    void debugMousePositions() const;
+
     // Variables
-    sf::RenderWindow *window_;
+    sf::RenderWindow* window_;
     sf::VideoMode mode_;
     sf::Event sfEvent_;
     sf::Font font_;
