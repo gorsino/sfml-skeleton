@@ -1,7 +1,7 @@
 #include "DebugSystem.h"
 
 DebugSystem::DebugSystem(sf::Vector2f position, sf::Vector2f size, const sf::Font& font)
-    : active_(false)
+    : active_(true)
 {
     auto color = WET_ASPHALT;
     color.a = 100;
