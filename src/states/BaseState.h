@@ -2,6 +2,8 @@
 #define BASESTATE_H
 
 #include <sstream>
+#include "../system/debug/MousePositionsText.h"
+#include "../utils/CommonStructs.h"
 #include "StateData.h"
 
 class BaseState {
@@ -25,8 +27,12 @@ protected:
 
     void updateKeyTime(const float &dt);
 
+    void updateMousePositions();
+
     // Variables
     StateData &stateData;
+
+    st::MousePositions mousePositions_;
 
     float keyTime_ = 0.f;
     float keyTimeMax_ = 1.f;

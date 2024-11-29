@@ -24,8 +24,6 @@ void Game::run() {
 
         // Update SFML events
         this->updateSFMLEvents();
-        // Update mouse positions
-        this->updateMousePositions();
 
         // Update and render
         this->update();
@@ -59,7 +57,6 @@ void Game::render() const {
 
     /// DEBUG START
     this->debugDeltaTime();
-    this->debugMousePositions();
 
     this->window_->draw(*this->stateData_.debug);
     /// DEBUG END
@@ -81,12 +78,6 @@ void Game::updateSFMLEvents() {
     }
 }
 
-void Game::updateMousePositions() {
-    this->mousePositions_.screen = sf::Mouse::getPosition();
-    this->mousePositions_.window = sf::Mouse::getPosition(*this->window_);
-    this->mousePositions_.view = this->window_->mapPixelToCoords(this->mousePositions_.window);
-}
-
 void Game::debugDeltaTime() const {
     std::stringstream ss;
     ss << "DeltaTime: " << this->dt_;
@@ -96,12 +87,6 @@ void Game::debugDeltaTime() const {
     deltaTimeText.setString(ss.str());
 
     this->stateData_.debug->add(deltaTimeText, DELTA_TIME, sf::Vector2f(20, 80));
-}
-
-void Game::debugMousePositions() const {
-    MousePositionsText mousePositionsText(this->mousePositions_, this->font_, 20);
-
-    this->stateData_.debug->add(mousePositionsText, MOUSE_POSITIONS, sf::Vector2f(20, 140));
 }
 
 // Private functions

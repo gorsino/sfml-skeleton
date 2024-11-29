@@ -1,6 +1,7 @@
 #ifndef COMMONSTRUCTS_H
 #define COMMONSTRUCTS_H
 
+#include <SFML/Graphics.hpp>
 namespace st {
     struct MousePositions
     {
