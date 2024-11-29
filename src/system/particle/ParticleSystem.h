@@ -3,9 +3,7 @@
 
 #include <vector>
 
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/Graphics/VertexArray.hpp"
-#include "SFML/System/Vector2.hpp"
+#include "SFML/Graphics.hpp"
 
 class ParticleSystem final : public sf::Drawable {
 public:

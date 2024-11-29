@@ -16,13 +16,21 @@ FetchContent_MakeAvailable(SFML)
 add_executable(sfml-skeleton src/main.cpp
         src/Game.cpp
         src/Game.h
-        src/Debug/DebugText.cpp
-        src/Debug/DebugText.h
-        src/ParticleSystem.cpp
-        src/ParticleSystem.h
-        src/Debug/MousePositionsText.cpp
-        src/Debug/MousePositionsText.h
-        src/PaletteColors.h
+        src/states/BaseState.cpp
+        src/states/BaseState.h
+        src/states/GameState.cpp
+        src/states/GameState.h
+        src/states/StateData.h
+        src/system/debug/DebugSystem.cpp
+        src/system/debug/DebugSystem.h
+        src/system/debug/DebugText.cpp
+        src/system/debug/DebugText.h
+        src/system/debug/MousePositionsText.cpp
+        src/system/debug/MousePositionsText.h
+        src/system/particle/ParticleSystem.cpp
+        src/system/particle/ParticleSystem.h
+        src/utils/PaletteColors.h
+        src/utils/CommonStructs.h
 )
 target_link_libraries(sfml-skeleton PRIVATE sfml-graphics)
 target_compile_features(sfml-skeleton PRIVATE cxx_std_17)

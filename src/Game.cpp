@@ -1,30 +1,27 @@
 #include "Game.h"
-#include "Debug/MousePositionsText.h"
 
-// Constructor / Destructor
-Game::Game() : window_(nullptr), sfEvent_(sf::Event())
-{
+/// Constructor / Destructor
+Game::Game() : window_(nullptr), sfEvent_(sf::Event()), stateData_(StateData()) {
     this->initFont();
     this->initWindow();
+    this->initState();
 }
 
-Game::~Game()
-{
+Game::~Game() {
+    while (!this->states_.empty()) {
+        delete this->states_.top();
+        this->states_.pop();
+    }
+
     delete this->window_;
 }
 
-// Public functions
-void Game::run()
-{
-    this->particles_.init(this->window_->getSize());
-
-    while (this->window_->isOpen())
-    {
+/// Public functions
+void Game::run() {
+    while (this->window_->isOpen()) {
         // Update delta time
         this->dt_ = this->dtClock_.restart().asSeconds();
 
-        // Update key time
-        this->updateKeyTime();
         // Update SFML events
         this->updateSFMLEvents();
         // Update mouse positions
@@ -36,71 +33,61 @@ void Game::run()
     }
 }
 
-void Game::update()
-{
-    this->particles_.update();
+void Game::update() {
+    // End Game
+    if (this->states_.empty())
+        this->window_->close();
+    else {
+        // Update current active state
+        this->states_.top()->updateInput(this->dt_);
+        this->states_.top()->update(this->dt_);
+
+        if (this->states_.top()->isExit()) {
+            delete this->states_.top();
+            this->states_.pop();
+        }
+    }
 }
 
-void Game::render() const
-{
-    // Clear before drawing
+void Game::render() const {
+    /// Clear before drawing
     this->window_->clear();
 
-    // Render all game objects before display (player, enemies, particles, etc...)
-    this->window_->draw(this->particles_);
+    /// Draw active state
+    if (!this->states_.empty())
+        this->states_.top()->render();
 
-    // ----------------------------------------------------------------
-    // DEBUG START
+    /// DEBUG START
     this->debugDeltaTime();
-    this->debugKeyTime();
     this->debugMousePositions();
-    // DEBUG END
-    // ----------------------------------------------------------------
+
+    this->window_->draw(*this->stateData_.debug);
+    /// DEBUG END
 
     this->window_->display();
 }
 
-void Game::updateSFMLEvents()
-{
-    while (this->window_->pollEvent(this->sfEvent_))
-    {
-        if (this->sfEvent_.type == sf::Event::MouseButtonPressed)
-        {
-            this->particles_.setEmitter(sf::Mouse::getPosition(*this->window_));
-        }
-        if (this->sfEvent_.type == sf::Event::Closed ||
-            (this->isKeyTime() && this->sfEvent_.type == sf::Event::KeyPressed && this->sfEvent_.key.code ==
-                sf::Keyboard::Escape))
+void Game::updateSFMLEvents() {
+    while (this->window_->pollEvent(this->sfEvent_)) {
+        // Toggle active DebugSystem
+        if (this->sfEvent_.key.code == sf::Keyboard::T && this->states_.top()->isKeyTime())
+            this->stateData_.debug->toggleActive();
+
+        // End Game/Application
+        if (this->sfEvent_.type == sf::Event::Closed || (
+                this->sfEvent_.type == sf::Event::KeyPressed && this->sfEvent_.key.code == sf::Keyboard::Escape && this
+                ->states_.top()->isKeyTime()))
             this->window_->close();
     }
 }
 
-void Game::updateMousePositions()
-{
+void Game::updateMousePositions() {
     this->mousePositions_.screen = sf::Mouse::getPosition();
     this->mousePositions_.window = sf::Mouse::getPosition(*this->window_);
     this->mousePositions_.view = this->window_->mapPixelToCoords(this->mousePositions_.window);
 }
 
-void Game::updateKeyTime()
-{
-    if (this->keyTime_ < this->keyTimeMax_)
-        this->keyTime_ += 100 * this->dt_;
-}
-
-bool Game::isKeyTime()
-{
-    if (this->keyTime_ >= this->keyTimeMax_)
-    {
-        this->keyTime_ = 0.f;
-        return true;
-    }
-
-    return false;
-}
-
-void Game::debugDeltaTime() const
-{
+void Game::debugDeltaTime() const {
     std::stringstream ss;
     ss << "DeltaTime: " << this->dt_;
 
@@ -108,29 +95,17 @@ void Game::debugDeltaTime() const
     deltaTimeText.setPosition(100, 100);
     deltaTimeText.setString(ss.str());
 
-    this->window_->draw(deltaTimeText);
+    this->stateData_.debug->add(deltaTimeText, DELTA_TIME, sf::Vector2f(20, 80));
 }
 
-void Game::debugKeyTime() const
-{
-    std::stringstream ss;
-    ss << "KeyTime: " << this->keyTime_;
+void Game::debugMousePositions() const {
+    MousePositionsText mousePositionsText(this->mousePositions_, this->font_, 20);
 
-    DebugText keyTimeText(this->font_, 22);
-    keyTimeText.setPosition(100, 120);
-    keyTimeText.setString(ss.str());
-
-    this->window_->draw(keyTimeText);
-}
-
-void Game::debugMousePositions() const
-{
-    this->window_->draw(MousePositionsText(this->mousePositions_, this->font_, 20));
+    this->stateData_.debug->add(mousePositionsText, MOUSE_POSITIONS, sf::Vector2f(20, 140));
 }
 
 // Private functions
-void Game::initWindow()
-{
+void Game::initWindow() {
     const std::string title = "SFML Skeleton";
 
     this->mode_ = sf::VideoMode(1920u, 1080u);
@@ -139,8 +114,17 @@ void Game::initWindow()
     this->window_->setFramerateLimit(144);
 }
 
-void Game::initFont()
-{
+void Game::initFont() {
     if (!this->font_.loadFromFile(FONTS_PATH + "courbd.ttf"))
         throw std::runtime_error("ERROR::Game::initFont(): Failed to load font");
+}
+
+void Game::initState() {
+    this->stateData_.window = this->window_;
+    this->stateData_.videoMode = &this->mode_;
+    this->stateData_.font = &this->font_;
+    this->stateData_.states = &this->states_;
+    this->stateData_.debug = new DebugSystem(sf::Vector2f(10, 100), sf::Vector2f(300, 500), this->font_);
+
+    this->states_.push(new GameState(this->stateData_));
 }

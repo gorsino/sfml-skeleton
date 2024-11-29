@@ -1,7 +1,5 @@
 #include "DebugText.h"
 
-#include "../PaletteColors.h"
-
 DebugText::DebugText(const sf::Font &font, int characterSize) {
     this->text.setFont(font);
     this->text.setCharacterSize(characterSize);

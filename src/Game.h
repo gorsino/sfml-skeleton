@@ -2,37 +2,32 @@
 #define GAME_H
 
 #include "SFML/Graphics.hpp"
-#include "Debug/DebugText.h"
-#include "ParticleSystem.h"
 
-#include <sstream>
+#include "utils/CommonStructs.h"
+
+#include "states/GameState.h"
+
+#include "system/debug/MousePositionsText.h"
 
 static const std::string FONTS_PATH = "resources/fonts/";
 
-// Structs
-struct MousePositions
-{
-    sf::Vector2i screen;
-    sf::Vector2i window;
-    sf::Vector2f view;
-};
-
-class Game
-{
+class Game {
 public:
-    // Constructor / Destructor
+    /// Constructor / Destructor
     Game();
 
     ~Game();
 
-    // Functions
+    /// Functions
     void run();
 
 private:
-    // Functions
+    /// Functions
     void initWindow();
 
     void initFont();
+
+    void initState();
 
     void update();
 
@@ -42,30 +37,23 @@ private:
 
     void updateMousePositions();
 
-    void updateKeyTime();
-
-    bool isKeyTime();
-
     void debugDeltaTime() const;
-
-    void debugKeyTime() const;
 
     void debugMousePositions() const;
 
-    // Variables
-    sf::RenderWindow* window_;
+    /// Variables
+    sf::RenderWindow *window_;
     sf::VideoMode mode_;
     sf::Event sfEvent_;
     sf::Font font_;
     sf::Clock dtClock_;
 
-    MousePositions mousePositions_;
+    st::MousePositions mousePositions_;
+
+    std::stack<BaseState *> states_;
+    StateData stateData_;
 
     float dt_ = 0.f;
-    float keyTime_ = 0.f;
-    float keyTimeMax_ = 10.f;
-
-    ParticleSystem particles_;
 };
 
 #endif //GAME_H

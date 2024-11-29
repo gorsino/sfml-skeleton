@@ -1,9 +1,9 @@
 #ifndef DEBUGTEXT_H
 #define DEBUGTEXT_H
 
-#include <sstream>
-#include "SFML/Graphics/Text.hpp"
-#include "SFML/Graphics/RenderWindow.hpp"
+#include "SFML/Graphics.hpp"
+
+#include "../../utils/PaletteColors.h"
 
 class DebugText : public sf::Drawable, public sf::Transformable {
 public:
