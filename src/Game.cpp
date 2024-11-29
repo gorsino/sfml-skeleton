@@ -67,7 +67,7 @@ void Game::render() const {
 void Game::updateSFMLEvents() {
     while (this->window_->pollEvent(this->sfEvent_)) {
         // Toggle active DebugSystem
-        if (this->sfEvent_.key.code == sf::Keyboard::T && this->states_.top()->isKeyTime())
+        if (this->sfEvent_.key.code == sf::Keyboard::D && this->states_.top()->isKeyTime())
             this->stateData_.debug->toggleActive();
 
         // End Game/Application
