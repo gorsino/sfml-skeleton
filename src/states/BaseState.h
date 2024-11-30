@@ -12,7 +12,7 @@ public:
 
     virtual void updateInput(const float &dt) = 0;
 
-    virtual void update(const float &dt) = 0;
+    virtual void update(const float &dt);
 
     virtual void render() = 0;
 

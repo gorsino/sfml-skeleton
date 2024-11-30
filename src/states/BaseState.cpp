@@ -5,6 +5,11 @@ BaseState::BaseState(StateData &stateData) : stateData(stateData), exit_(false),
 
 BaseState::~BaseState() = default;
 
+void BaseState::update(const float &dt) {
+    this->updateKeyTime(dt);
+    this->updateMousePositions();
+}
+
 void BaseState::updateKeyTime(const float &dt) {
     if (this->keyTime_ < this->keyTimeMax_)
         this->keyTime_ += 5 * dt;

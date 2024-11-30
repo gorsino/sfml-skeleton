@@ -11,8 +11,7 @@ void GameState::updateInput(const float &dt) {
 }
 
 void GameState::update(const float &dt) {
-    this->updateKeyTime(dt);
-    this->updateMousePositions();
+    BaseState::update(dt);
 
     this->particles_.update();
 }
