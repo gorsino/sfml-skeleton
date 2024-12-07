@@ -5,7 +5,9 @@ GameState::GameState(StateData &stateData): BaseState(stateData) {
 }
 
 void GameState::updateInput(const float &dt) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->isKeyTime()) {
+    BaseState::updateInput(dt);
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->stateData.keyTime->isTime()) {
         this->particles_.setEmitter(sf::Mouse::getPosition(*this->stateData.window));
     }
 }

@@ -3,20 +3,18 @@
 
 #include <sstream>
 #include "../system/debug/MousePositionsText.h"
-#include "../utils/CommonStructs.h"
+#include "../utils/TypeDefStructs.h"
 #include "StateData.h"
 
 class BaseState {
 public:
     virtual ~BaseState();
 
-    virtual void updateInput(const float &dt) = 0;
+    virtual void updateInput(const float &dt);
 
     virtual void update(const float &dt);
 
     virtual void render() = 0;
-
-    bool isKeyTime();
 
     bool &isExit();
 
@@ -25,17 +23,10 @@ public:
 protected:
     explicit BaseState(StateData &stateData);
 
-    void updateKeyTime(const float &dt);
-
-    void updateMousePositions();
-
     // Variables
     StateData &stateData;
 
-    st::MousePositions mousePositions_;
-
-    float keyTime_ = 0.f;
-    float keyTimeMax_ = 1.f;
+    MousePositions mousePositions_;
 
 private:
     bool exit_;

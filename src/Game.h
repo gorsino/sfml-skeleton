@@ -2,7 +2,9 @@
 #define GAME_H
 
 #include "SFML/Graphics.hpp"
+
 #include "states/GameState.h"
+#include "states/MainMenuState.h"
 
 static const std::string FONTS_PATH = "resources/fonts/";
 
@@ -24,7 +26,7 @@ private:
 
     void initState();
 
-    void update();
+    void updateStates();
 
     void render() const;
 
@@ -40,6 +42,10 @@ private:
     sf::Clock dtClock_;
 
     std::stack<BaseState *> states_;
+
+    MousePositions mousePositions_;
+    KeyTime keyTime_;
+
     StateData stateData_;
 
     float dt_ = 0.f;

@@ -22,24 +22,36 @@ void Game::run() {
         // Update delta time
         this->dt_ = this->dtClock_.restart().asSeconds();
 
+        // Update key time
+        this->keyTime_.update(this->dt_);
+
+        // Update mouse positions
+        this->mousePositions_.update(*this->window_);
+        MousePositionsText mousePositionsText(this->mousePositions_, this->font_, 20);
+
+        this->stateData_.debug->add(mousePositionsText, MOUSE_POSITIONS, sf::Vector2f(20, 140));
+
         // Update SFML events
         this->updateSFMLEvents();
 
-        // Update and render
-        this->update();
+        // Update states
+        this->updateStates();
+
+        // Rendering
         this->render();
     }
 }
 
-void Game::update() {
-    // End Game
+void Game::updateStates() {
     if (this->states_.empty())
+        // End Game/Application
         this->window_->close();
     else {
         // Update current active state
         this->states_.top()->updateInput(this->dt_);
         this->states_.top()->update(this->dt_);
 
+        // Delete state when exit
         if (this->states_.top()->isExit()) {
             delete this->states_.top();
             this->states_.pop();
@@ -48,10 +60,10 @@ void Game::update() {
 }
 
 void Game::render() const {
-    /// Clear before drawing
+    /// Clear before rendering
     this->window_->clear();
 
-    /// Draw active state
+    /// Render active state
     if (!this->states_.empty())
         this->states_.top()->render();
 
@@ -66,14 +78,12 @@ void Game::render() const {
 
 void Game::updateSFMLEvents() {
     while (this->window_->pollEvent(this->sfEvent_)) {
-        // Toggle active DebugSystem
-        if (this->sfEvent_.key.code == sf::Keyboard::D && this->states_.top()->isKeyTime())
+        // Toggle show/hide debug system
+        if (this->sfEvent_.key.code == sf::Keyboard::T && this->keyTime_.isTime())
             this->stateData_.debug->toggleActive();
 
         // End Game/Application
-        if (this->sfEvent_.type == sf::Event::Closed || (
-                this->sfEvent_.type == sf::Event::KeyPressed && this->sfEvent_.key.code == sf::Keyboard::Escape && this
-                ->states_.top()->isKeyTime()))
+        if (this->sfEvent_.type == sf::Event::Closed)
             this->window_->close();
     }
 }
@@ -109,7 +119,9 @@ void Game::initState() {
     this->stateData_.videoMode = &this->mode_;
     this->stateData_.font = &this->font_;
     this->stateData_.states = &this->states_;
+    this->stateData_.keyTime = &this->keyTime_;
     this->stateData_.debug = new DebugSystem(sf::Vector2f(10, 100), sf::Vector2f(300, 500), this->font_);
 
+    this->states_.push(new MainMenuState(this->stateData_));
     this->states_.push(new GameState(this->stateData_));
 }

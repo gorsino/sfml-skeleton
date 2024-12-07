@@ -30,7 +30,14 @@ add_executable(sfml-skeleton src/main.cpp
         src/system/particle/ParticleSystem.cpp
         src/system/particle/ParticleSystem.h
         src/utils/PaletteColors.h
-        src/utils/CommonStructs.h
+        src/utils/TypeDefStructs.h
+        src/utils/Components.h
+        src/entities/EntityManager.cpp
+        src/entities/EntityManager.h
+        src/entities/Entity.cpp
+        src/entities/Entity.h
+        src/states/MainMenuState.cpp
+        src/states/MainMenuState.h
 )
 target_link_libraries(sfml-skeleton PRIVATE sfml-graphics)
 target_compile_features(sfml-skeleton PRIVATE cxx_std_17)

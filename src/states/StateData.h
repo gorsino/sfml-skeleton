@@ -18,6 +18,7 @@ public:
     sf::RenderWindow *window;
     sf::VideoMode *videoMode;
     sf::Font *font;
+    KeyTime *keyTime;
 
     std::stack<BaseState *> *states;
 
