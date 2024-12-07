@@ -5,6 +5,8 @@
 #include <memory>
 #include <map>
 
+#include <SFML/Graphics/RenderWindow.hpp>
+
 #include "Entity.h"
 
 using EntityVec = std::vector<std::shared_ptr<Entity>>;
@@ -16,22 +18,15 @@ public:
 
     ~EntityManager() = default;
 
-    void updateInputs() {}
+    void update();
 
-    void update() {}
+    void render(sf::RenderWindow &window);
 
-    void render(sf::RenderTarget &target) {}
+    EntityMap &getEntities();
 
-    EntityMap &getEntities() { return this->entityMap_; }
+    EntityVec &getEntities(std::string &tag);
 
-    EntityVec &getEntities(std::string &tag) { return this->entityMap_[tag]; }
-
-    std::shared_ptr<Entity> createEntity(std::string &tag) {
-        auto entity = std::make_shared<Entity>();
-        this->entityMap_[tag].push_back(entity);
-
-        return entity;
-    }
+    std::shared_ptr<Entity> addEntity(const std::string &tag);
 
 private:
     EntityMap entityMap_;

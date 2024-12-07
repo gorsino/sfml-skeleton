@@ -1,6 +1,8 @@
 #include "Game.h"
 
-/// Constructor / Destructor
+////////////////////////////////
+/// Constructor / Destructor ///
+////////////////////////////////
 Game::Game() : window_(nullptr), sfEvent_(sf::Event()), stateData_(StateData()) {
     this->initFont();
     this->initWindow();
@@ -16,7 +18,9 @@ Game::~Game() {
     delete this->window_;
 }
 
-/// Public functions
+//////////////////////////
+/// MAIN LOOP function ///
+//////////////////////////
 void Game::run() {
     while (this->window_->isOpen()) {
         // Update delta time
@@ -27,9 +31,7 @@ void Game::run() {
 
         // Update mouse positions
         this->mousePositions_.update(*this->window_);
-        MousePositionsText mousePositionsText(this->mousePositions_, this->font_, 20);
-
-        this->stateData_.debug->add(mousePositionsText, MOUSE_POSITIONS, sf::Vector2f(20, 140));
+        this->debugMousePositions();
 
         // Update SFML events
         this->updateSFMLEvents();
@@ -42,23 +44,41 @@ void Game::run() {
     }
 }
 
+////////////////////////
+/// Update functions ///
+////////////////////////
+void Game::updateSFMLEvents() {
+    while (this->window_->pollEvent(this->sfEvent_)) {
+        // Toggle show/hide debug system
+        if (this->sfEvent_.key.code == sf::Keyboard::T && this->keyTime_.isTime())
+            this->stateData_.debug->toggleActive();
+
+        // End Game/Application
+        if (this->sfEvent_.type == sf::Event::Closed)
+            this->window_->close();
+    }
+}
+
 void Game::updateStates() {
     if (this->states_.empty())
         // End Game/Application
         this->window_->close();
     else {
         // Update current active state
-        this->states_.top()->updateInput(this->dt_);
+        this->states_.top()->updateInputs(this->dt_);
         this->states_.top()->update(this->dt_);
 
         // Delete state when exit
-        if (this->states_.top()->isExit()) {
+        if (this->states_.top()->exit) {
             delete this->states_.top();
             this->states_.pop();
         }
     }
 }
 
+/////////////////
+/// Rendering ///
+/////////////////
 void Game::render() const {
     /// Clear before rendering
     this->window_->clear();
@@ -76,18 +96,9 @@ void Game::render() const {
     this->window_->display();
 }
 
-void Game::updateSFMLEvents() {
-    while (this->window_->pollEvent(this->sfEvent_)) {
-        // Toggle show/hide debug system
-        if (this->sfEvent_.key.code == sf::Keyboard::T && this->keyTime_.isTime())
-            this->stateData_.debug->toggleActive();
-
-        // End Game/Application
-        if (this->sfEvent_.type == sf::Event::Closed)
-            this->window_->close();
-    }
-}
-
+///////////////////////
+/// Debug functions ///
+///////////////////////
 void Game::debugDeltaTime() const {
     std::stringstream ss;
     ss << "DeltaTime: " << this->dt_;
@@ -99,7 +110,17 @@ void Game::debugDeltaTime() const {
     this->stateData_.debug->add(deltaTimeText, DELTA_TIME, sf::Vector2f(20, 80));
 }
 
-// Private functions
+void Game::debugMousePositions() const {
+    MousePositionsText mousePositionsText(
+            this->mousePositions_, this->font_, 20);
+
+    this->stateData_.debug->add(
+            mousePositionsText, MOUSE_POSITIONS, sf::Vector2f(20, 140));
+}
+
+//////////////////////
+/// Init functions ///
+//////////////////////
 void Game::initWindow() {
     const std::string title = "SFML Skeleton";
 
@@ -122,6 +143,6 @@ void Game::initState() {
     this->stateData_.keyTime = &this->keyTime_;
     this->stateData_.debug = new DebugSystem(sf::Vector2f(10, 100), sf::Vector2f(300, 500), this->font_);
 
-    this->states_.push(new MainMenuState(this->stateData_));
+    this->states_.push(new InitialState(this->stateData_));
     this->states_.push(new GameState(this->stateData_));
 }

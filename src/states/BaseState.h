@@ -8,30 +8,23 @@
 
 class BaseState {
 public:
-    virtual ~BaseState();
+    virtual ~BaseState() = default;
 
-    virtual void updateInput(const float &dt);
+    virtual void updateInputs(const float &dt) = 0;
 
-    virtual void update(const float &dt);
+    virtual void update(const float &dt) = 0;
 
     virtual void render() = 0;
 
-    bool &isExit();
+    [[nodiscard]] bool isKeyTime() const { return this->stateData.keyTime->isTime(); }
 
-    void exit();
+    bool exit = false;
 
 protected:
-    explicit BaseState(StateData &stateData);
+    explicit BaseState(StateData &stateData) : stateData(stateData) {}
 
     // Variables
-    StateData &stateData;
-
-    MousePositions mousePositions_;
-
-private:
-    bool exit_;
-
-    unsigned int defaultGridSize_;
+    StateData stateData;
 };
 
 #endif //BASESTATE_H

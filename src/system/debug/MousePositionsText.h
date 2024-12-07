@@ -1,5 +1,5 @@
-#ifndef SFML_SKELETON_MOUSEPOSITIONSTEXT_H
-#define SFML_SKELETON_MOUSEPOSITIONSTEXT_H
+#ifndef MOUSEPOSITIONSTEXT_H
+#define MOUSEPOSITIONSTEXT_H
 
 #include <sstream>
 #include "DebugText.h"
@@ -12,4 +12,4 @@ public:
     ~MousePositionsText() override = default;
 };
 
-#endif //SFML_SKELETON_MOUSEPOSITIONSTEXT_H
+#endif //MOUSEPOSITIONSTEXT_H

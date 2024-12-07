@@ -6,20 +6,28 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 class Component {
+public:
+    bool exists = false;
 };
 
 class CRect : public Component {
 public:
+    CRect() = default;
+
     sf::RectangleShape rect;
 };
 
 class CText : public Component {
 public:
+    CText() = default;
+
     sf::Text text;
 };
 
 class CSprite : public Component {
 public:
+    CSprite() = default;
+
     sf::Sprite sprite;
 };
 

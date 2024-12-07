@@ -1,5 +1,5 @@
-#ifndef SFML_SKELETON_ENTITY_H
-#define SFML_SKELETON_ENTITY_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <string>
 #include "../utils/Components.h"
@@ -18,9 +18,7 @@ public:
 
     std::string layer = "Default";
 
-    CComponent components;
-
-private:
+    sf::RectangleShape rect = sf::RectangleShape();
 };
 
-#endif //SFML_SKELETON_ENTITY_H
+#endif //ENTITY_H

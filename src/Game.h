@@ -4,7 +4,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "states/GameState.h"
-#include "states/MainMenuState.h"
+#include "states/InitialState.h"
 
 static const std::string FONTS_PATH = "resources/fonts/";
 
@@ -34,6 +34,8 @@ private:
 
     void debugDeltaTime() const;
 
+    void debugMousePositions() const;
+
     /// Variables
     sf::RenderWindow *window_;
     sf::VideoMode mode_;
@@ -41,7 +43,7 @@ private:
     sf::Font font_;
     sf::Clock dtClock_;
 
-    std::stack<BaseState *> states_;
+    StackState states_;
 
     MousePositions mousePositions_;
     KeyTime keyTime_;

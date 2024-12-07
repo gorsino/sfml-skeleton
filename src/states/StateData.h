@@ -9,6 +9,8 @@
 
 class BaseState;
 
+typedef std::stack<BaseState *> StackState;
+
 class StateData {
 public:
     StateData() = default;
@@ -20,7 +22,7 @@ public:
     sf::Font *font;
     KeyTime *keyTime;
 
-    std::stack<BaseState *> *states;
+    StackState *states;
 
     DebugSystem *debug;
 };

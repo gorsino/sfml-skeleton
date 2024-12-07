@@ -1,23 +1,27 @@
 #include "GameState.h"
 
-GameState::GameState(StateData &stateData): BaseState(stateData) {
-    this->particles_.init(stateData.window->getSize());
+GameState::GameState(StateData &stateData) : BaseState(stateData) {
 }
 
-void GameState::updateInput(const float &dt) {
-    BaseState::updateInput(dt);
+GameState::~GameState() = default;
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->stateData.keyTime->isTime()) {
-        this->particles_.setEmitter(sf::Mouse::getPosition(*this->stateData.window));
+void GameState::updateInputs(const float &dt) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->isKeyTime()) {
+        this->exit = true;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && this->isKeyTime()) {
+        std::shared_ptr<Entity> e = this->entityManager_.addEntity("number");
+        e->rect.setFillColor(POMEGRANATE);
+        e->rect.setSize(sf::Vector2f(100.f, 100.f));
+        e->rect.setPosition(rand() % 1920, rand() % 1080);
+
     }
 }
 
 void GameState::update(const float &dt) {
-    BaseState::update(dt);
-
-    this->particles_.update();
 }
 
 void GameState::render() {
-    this->stateData.window->draw(this->particles_);
+    this->entityManager_.render(*this->stateData.window);
 }

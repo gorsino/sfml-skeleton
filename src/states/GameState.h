@@ -3,21 +3,22 @@
 
 #include "BaseState.h"
 #include "../system/particle/ParticleSystem.h"
+#include "../entities/EntityManager.h"
 
 class GameState final : public BaseState {
 public:
     explicit GameState(StateData &stateData);
 
-    ~GameState() override = default;
+    ~GameState() override;
 
-    void updateInput(const float &dt) override;
+    void updateInputs(const float &dt) override;
 
     void update(const float &dt) override;
 
     void render() override;
 
 private:
-    ParticleSystem particles_;
+    EntityManager entityManager_;
 };
 
 #endif //GAMESTATE_H
