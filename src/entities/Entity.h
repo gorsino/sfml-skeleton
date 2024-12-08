@@ -2,9 +2,11 @@
 #define ENTITY_H
 
 #include <string>
-#include "../utils/Components.h"
+#include <memory>
 
 #include <SFML/Graphics/RectangleShape.hpp>
+
+#include "../utils/Components.h"
 
 using CComponent = std::tuple<CRect, CSprite, CText>;
 
@@ -13,6 +15,8 @@ public:
     Entity() = default;
 
     ~Entity() = default;
+
+    static std::shared_ptr<Entity> create(const std::string &tag);
 
     std::string tag = "None";
 

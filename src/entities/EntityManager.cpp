@@ -14,9 +14,7 @@ EntityMap &EntityManager::getEntities() { return this->entityMap_; }
 EntityVec &EntityManager::getEntities(std::string &tag) { return this->entityMap_[tag]; }
 
 std::shared_ptr<Entity> EntityManager::addEntity(const std::string &tag) {
-    auto entity = std::make_shared<Entity>();
-    entity->tag = tag;
-
+    auto entity = Entity::create(tag);
     this->entityMap_[tag].push_back(entity);
 
     return entity;
