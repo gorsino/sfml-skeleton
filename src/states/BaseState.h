@@ -16,15 +16,17 @@ public:
 
     virtual void render() = 0;
 
-    [[nodiscard]] bool isKeyTime() const { return this->stateData.keyTime->isTime(); }
+    [[nodiscard]] bool isKeyTime() const { return this->stateData->keyTime->isTime(); }
+
+    std::string name;
 
     bool exit = false;
 
 protected:
-    explicit BaseState(StateData &stateData) : stateData(stateData) {}
+    explicit BaseState(StateData *stateData) : stateData(stateData) {}
 
     // Variables
-    StateData stateData;
+    StateData *stateData;
 };
 
 #endif //BASESTATE_H

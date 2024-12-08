@@ -5,7 +5,7 @@ MousePositionsText::MousePositionsText(
         : DebugText(font, characterSize) {
 
     std::stringstream ss;
-    ss << "Mouse positions:" << "\n";
+    ss << "MOUSE POSITIONS:" << "\n";
     ss << "------------------" << "\n";
     ss << "Screen: " << mousePositions.screen.x << "  " << mousePositions.screen.y << "\n";
     ss << "Window: " << mousePositions.window.x << "  " << mousePositions.window.y << "\n";

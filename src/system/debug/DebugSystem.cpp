@@ -1,5 +1,7 @@
 #include "DebugSystem.h"
 
+DebugSystem::DebugSystem() : active_(true) {}
+
 DebugSystem::DebugSystem(sf::Vector2f position, sf::Vector2f size, const sf::Font& font)
     : active_(true)
 {
@@ -42,6 +44,10 @@ void DebugSystem::add(DebugText& debugText, int index, const sf::Vector2f offset
 
     this->debugTexts_.erase(index);
     this->debugTexts_.emplace(index, debugText);
+}
+
+void DebugSystem::clear() {
+    this->debugTexts_.clear();
 }
 
 void DebugSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const

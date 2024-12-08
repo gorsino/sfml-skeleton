@@ -1,15 +1,15 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef EDITORSTATE_H
+#define EDITORSTATE_H
 
 #include "BaseState.h"
 #include "../system/particle/ParticleSystem.h"
 #include "../entities/EntityManager.h"
 
-class GameState final : public BaseState {
+class EditorState final : public BaseState {
 public:
-    explicit GameState(StateData &stateData);
+    explicit EditorState(StateData *stateData);
 
-    ~GameState() override;
+    ~EditorState() override;
 
     void updateInputs(const float &dt) override;
 
@@ -18,7 +18,9 @@ public:
     void render() override;
 
 private:
+    void debugTotalEntities();
+
     EntityManager entityManager_;
 };
 
-#endif //GAMESTATE_H
+#endif //EDITORSTATE_H

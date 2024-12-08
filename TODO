@@ -1,0 +1,5 @@
+- Add a StateManager class
+- Add a CMovement component
+- Add a UIComponent class to manage button, text, ...
+    ex. UIComponent.addButton("New Game);
+-

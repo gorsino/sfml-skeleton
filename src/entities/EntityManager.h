@@ -28,6 +28,8 @@ public:
 
     std::shared_ptr<Entity> addEntity(const std::string &tag);
 
+    size_t getTotalEntities();
+
 private:
     EntityMap entityMap_;
 };

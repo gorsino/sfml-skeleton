@@ -17,8 +17,8 @@ add_executable(sfml-skeleton src/main.cpp
         src/Game.cpp
         src/Game.h
         src/states/BaseState.h
-        src/states/GameState.cpp
-        src/states/GameState.h
+        src/states/EditorState.cpp
+        src/states/EditorState.h
         src/states/StateData.h
         src/system/debug/DebugSystem.cpp
         src/system/debug/DebugSystem.h

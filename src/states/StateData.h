@@ -20,10 +20,10 @@ public:
     sf::RenderWindow *window;
     sf::VideoMode *videoMode;
     sf::Font *font;
-    KeyTime *keyTime;
 
     StackState *states;
-
+    KeyTime *keyTime;
+    MousePositions *mousePositions;
     DebugSystem *debug;
 };
 

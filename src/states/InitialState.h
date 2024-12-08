@@ -2,11 +2,12 @@
 #define INITIALSTATE_H
 
 #include "BaseState.h"
+#include "EditorState.h"
 #include "../ui/UI.h"
 
 class InitialState final : public BaseState {
 public:
-    explicit InitialState(StateData &stateData);
+    explicit InitialState(StateData *stateData);
 
     ~InitialState() override = default;
 

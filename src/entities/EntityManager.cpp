@@ -21,3 +21,12 @@ std::shared_ptr<Entity> EntityManager::addEntity(const std::string &tag) {
 
     return entity;
 }
+
+size_t EntityManager::getTotalEntities() {
+    size_t total = 0;
+
+    for (auto &[fst, snd]: this->entityMap_)
+        total += snd.size();
+
+    return total;
+}
