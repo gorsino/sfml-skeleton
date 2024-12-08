@@ -11,14 +11,15 @@ public:
 
     ~InitialState() override = default;
 
-    void updateInputs(const float &dt) override;
+    void updateInputs() override;
 
-    void update(const float &dt) override;
+    void update() override;
 
     void render() override;
 
 private:
     sf::RectangleShape background_;
+    sf::RectangleShape panel_;
 
     MapButtons buttons_;
 };

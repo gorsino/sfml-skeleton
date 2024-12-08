@@ -10,11 +10,13 @@ class BaseState {
 public:
     virtual ~BaseState() = default;
 
-    virtual void updateInputs(const float &dt) = 0;
+    virtual void updateInputs() = 0;
 
-    virtual void update(const float &dt) = 0;
+    virtual void update() = 0;
 
     virtual void render() = 0;
+
+    void stackState(BaseState *state) { this->stateData->states->push(state); }
 
     [[nodiscard]] bool isKeyTime() const { return this->stateData->keyTime->isTime(); }
 

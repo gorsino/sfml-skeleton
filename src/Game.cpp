@@ -24,9 +24,6 @@ Game::~Game() {
 //////////////////////////
 void Game::run() {
     while (this->window_->isOpen()) {
-        // Clear debug system first
-        this->debugSystem_.clear();
-
         // Update delta time
         this->dt_ = this->dtClock_.restart().asSeconds();
 
@@ -38,6 +35,9 @@ void Game::run() {
 
         // Update SFML events
         this->updateSFMLEvents();
+
+        // Clear debug system
+        this->debugSystem_.clear();
 
         // Update states
         this->updateStates();
@@ -68,8 +68,8 @@ void Game::updateStates() {
         this->window_->close();
     else {
         // Update current active state
-        this->states_.top()->updateInputs(this->dt_);
-        this->states_.top()->update(this->dt_);
+        this->states_.top()->updateInputs();
+        this->states_.top()->update();
 
         // Delete state when exit
         if (this->states_.top()->exit) {

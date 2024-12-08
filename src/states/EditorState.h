@@ -11,9 +11,9 @@ public:
 
     ~EditorState() override;
 
-    void updateInputs(const float &dt) override;
+    void updateInputs() override;
 
-    void update(const float &dt) override;
+    void update() override;
 
     void render() override;
 

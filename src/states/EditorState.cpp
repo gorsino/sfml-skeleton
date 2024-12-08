@@ -6,7 +6,7 @@ EditorState::EditorState(StateData *stateData) : BaseState(stateData) {
 
 EditorState::~EditorState() = default;
 
-void EditorState::updateInputs(const float &dt) {
+void EditorState::updateInputs() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->isKeyTime()) {
         this->exit = true;
     }
@@ -20,7 +20,7 @@ void EditorState::updateInputs(const float &dt) {
     }
 }
 
-void EditorState::update(const float &dt) {
+void EditorState::update() {
     this->debugTotalEntities();
 }
 
