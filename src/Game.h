@@ -47,7 +47,7 @@ private:
     sf::Font font_;
     sf::Clock dtClock_;
 
-    StackState states_;
+    StackStates states_;
     StateData stateData_;
     KeyTime keyTime_;
     MousePositions mousePositions_;

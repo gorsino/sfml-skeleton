@@ -20,7 +20,7 @@ public:
 private:
     sf::RectangleShape background_;
 
-    std::map<std::string, ui::Button *> buttons_;
+    MapButtons buttons_;
 };
 
 #endif //INITIALSTATE_H

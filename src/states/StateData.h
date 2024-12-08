@@ -9,7 +9,7 @@
 
 class BaseState;
 
-typedef std::stack<BaseState *> StackState;
+typedef std::stack<BaseState *> StackStates;
 
 class StateData {
 public:
@@ -21,7 +21,7 @@ public:
     sf::VideoMode *videoMode;
     sf::Font *font;
 
-    StackState *states;
+    StackStates *states;
     KeyTime *keyTime;
     MousePositions *mousePositions;
     DebugSystem *debug;

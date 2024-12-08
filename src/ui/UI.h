@@ -101,4 +101,6 @@ namespace ui {
     };
 }
 
+typedef std::map<std::string, ui::Button *> MapButtons;
+
 #endif //GUI_H
