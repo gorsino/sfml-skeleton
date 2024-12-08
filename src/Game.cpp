@@ -92,13 +92,16 @@ void Game::render() {
             this->states_.top()->render();
     }
 
-    /// DEBUG START
-    this->debugDeltaTime();
-    this->debugKeyTime();
-    this->debugMousePositions();
+    /// DEBUG SYSTEM
+    {
+        if (this->debugSystem_.isActive()) {
+            this->debugDeltaTime();
+            this->debugKeyTime();
+            this->debugMousePositions();
 
-    this->window_->draw(this->debugSystem_);
-    /// DEBUG END
+            this->window_->draw(this->debugSystem_);
+        }
+    }
 
     this->window_->display();
 }

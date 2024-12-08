@@ -29,6 +29,9 @@ void EditorState::render() {
 }
 
 void EditorState::debugTotalEntities() {
+    if (!this->stateData->debug->isActive())
+        return;
+
     std::stringstream ss;
     ss << "Entities: " << this->entityManager_.getTotalEntities();
 

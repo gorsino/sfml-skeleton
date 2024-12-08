@@ -29,7 +29,7 @@ void DebugSystem::toggleActive()
     this->active_ = !this->active_;
 }
 
-bool DebugSystem::getActive() const
+bool DebugSystem::isActive() const
 {
     return this->active_;
 }

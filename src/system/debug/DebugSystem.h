@@ -20,7 +20,7 @@ public:
 
     void toggleActive();
 
-    bool getActive() const;
+    bool isActive() const;
 
     void add(DebugText &debugText, int index, sf::Vector2f offsetPos);
 
