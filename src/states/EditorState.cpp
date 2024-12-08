@@ -16,7 +16,6 @@ void EditorState::updateInputs() {
         e->rect.setFillColor(POMEGRANATE);
         e->rect.setSize(sf::Vector2f(100.f, 100.f));
         e->rect.setPosition(rand() % 1920, rand() % 1080);
-
     }
 }
 
