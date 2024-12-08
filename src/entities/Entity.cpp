@@ -6,3 +6,7 @@ std::shared_ptr<Entity> Entity::create(const std::string &tag) {
 
     return entity;
 }
+
+void Entity::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(this->rect, states);
+}

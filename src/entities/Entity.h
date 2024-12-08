@@ -4,17 +4,17 @@
 #include <string>
 #include <memory>
 
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "../utils/Components.h"
 
 using CComponent = std::tuple<CRect, CSprite, CText>;
 
-class Entity {
+class Entity final : public sf::Drawable {
 public:
     Entity() = default;
 
-    ~Entity() = default;
+    ~Entity() override = default;
 
     static std::shared_ptr<Entity> create(const std::string &tag);
 
@@ -23,6 +23,10 @@ public:
     std::string layer = "Default";
 
     sf::RectangleShape rect = sf::RectangleShape();
+
+protected:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 };
 
 #endif //ENTITY_H

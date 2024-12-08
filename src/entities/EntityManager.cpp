@@ -3,10 +3,10 @@
 void EntityManager::update() {
 }
 
-void EntityManager::render(sf::RenderWindow &window) {
+void EntityManager::render(sf::RenderTarget &target) {
     for (auto &[frs, snd]: this->entityMap_)
         for (auto &e: snd)
-            window.draw(e->rect);
+            target.draw(*e);
 }
 
 EntityMap &EntityManager::getEntities() { return this->entityMap_; }
